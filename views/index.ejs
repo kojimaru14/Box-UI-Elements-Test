@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Box Content Open With Demo</title>
+
+    <!-- これなくても Chrome では動くが、IE11だとダメ -->
+    <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
+
+    <link href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/openwith.css" rel="stylesheet" />
+    <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/openwith.js"></script>
+
+    <link href="https://cdn01.boxcdn.net/platform/preview/2.34.0/en-US/preview.css" rel="stylesheet" type="text/css"></link>
+    <script src="https://cdn01.boxcdn.net/platform/preview/2.34.0/en-US/preview.js"></script>
+
+  </head>
+    <body>
+    <div class="openwith" style=""></div>
+    <div class="preview-container" style="border: 1px solid #eee; height:600px; width: 100%;"></div>
+    <script>
+
+      var configData = {
+        FILE_ID: "<%= FILE_ID %>",
+        ACCESS_TOKEN: "<%= ACCESS_TOKEN %>"
+      };
+
+      console.log( "File ID: ", configData.FILE_ID )
+      const contentOpenWith = new Box.ContentOpenWith();
+
+      contentOpenWith.show( 
+        configData.FILE_ID, 
+        configData.ACCESS_TOKEN, 
+        { container: ".openwith", dropdownAlignment: "left", onExecute: executeHandler } // 指定可能なオプション：https://developer.box.com/guides/embed/ui-elements/open-with/#options
+      )
+
+      const preview = new Box.Preview();
+      preview.show(configData.FILE_ID, configData.ACCESS_TOKEN, { container: ".preview-container" });
+      
+      // Somehow onExecute does NOT work.. 
+      var executeHandler = (response) => {
+        console.log("Execute Handler: ", response);
+        return response;
+      }
+      // but the below code works..
+      contentOpenWith.addListener('execute', function(id) {
+        // ここに execute 発生時（ファイルが開かれる際）の処理を追加
+        console.log('executing app integration: ' + id);
+        /*
+        // 例：ファイルをロックする際の処理：https://ja.developer.box.com/reference/put-files-id/#param-lock
+        const url = `https://api.box.com/2.0/files/${configData.FILE_ID}/?fields=lock`
+        const data = {"lock":{"expires_at": "2020-12-01T16:51:19-08:00", "is_download_prevented":false}}
+        fetch(url, {
+          method: "PUT",
+          mode: "cors",
+          headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${configData.ACCESS_TOKEN}`
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => console.log( response.json() ) ); // レスポンスの JSON を解析
+        */
+      });
+
+    </script>
+  </body>
+</html>
