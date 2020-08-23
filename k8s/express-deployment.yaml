@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: express-deployment
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            component: express
+    template:
+        metadata:
+            labels:
+                component: express
+        spec:
+            containers:
+                - name: express
+                  image: lyugaloki/ui-elements-express
+                  ports:
+                    - containerPort: 3000
+                  env:
+                    - name: CONFIG_JSON_PATH
+                      value: "./BoxJWTConfig.json"
+                    - name: NGINX
+                      value: "true"
