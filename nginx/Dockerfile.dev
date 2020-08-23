@@ -1,0 +1,6 @@
+FROM nginx
+COPY ./default.conf /etc/nginx/conf.d/default.conf
+# COPY private key
+COPY ./server_key.pem /etc/pki/tls/private/server_key.pem
+# COPY cert
+COPY ./server_crt.pem /etc/pki/tls/certs/server_crt.pem
