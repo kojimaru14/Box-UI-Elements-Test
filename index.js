@@ -6,7 +6,7 @@ const path = require('path');
 const https = require('https');
 const fs = require('fs');
 
-const config = require('./BoxJWTConfig.json');
+const config = require(process.env.CONFIG_JSON_PATH || './BoxJWTConfig.json');
 var BoxSDK = require('box-node-sdk');
 
 const app = express();
@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
     });
 });
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;    // For debugging purpose
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);       // HTTP  server at port 5000 (http://localhost:3000/)
 server.listen(4000);    // HTTPS server at port 4000 (https://localhost:4000/)
