@@ -2,22 +2,10 @@
 const express = require("express");
 const path = require('path');
 
-// import https for creating https server
-const https = require('https');
-const fs = require('fs');
-
 const config = require(process.env.CONFIG_JSON_PATH || './BoxJWTConfig.json');
 var BoxSDK = require('box-node-sdk');
 
 const app = express();
-
-// httpsが必須要件らしいので、HTTPSサーバーとして作成（実際、検証するとhttpではダメだった）
-// https://ja.developer.box.com/guides/embed/ui-elements/open-with/#box-edit
-var options = {
-    key: fs.readFileSync('./server_key.pem'),
-    cert: fs.readFileSync('./server_crt.pem')
-};
-const server = https.createServer( options, app );
 
 const app_user_id = '8352023916'
 const file_id = '686737978452'
@@ -51,7 +39,25 @@ app.get('/', (req, res) => {
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;    // For debugging purpose
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);       // HTTP  server at port 5000 (http://localhost:3000/)
-server.listen(4000);    // HTTPS server at port 4000 (https://localhost:4000/)
+
+// Nginxを使用しない場合は、expressでhttpsサーバーを作成する
+if ( !process.env.NGINX ) {
+    // httpsが必須要件らしいので、HTTPSサーバーとして作成（実際、検証するとhttpではダメだった）
+    // https://ja.developer.box.com/guides/embed/ui-elements/open-with/#box-edit
+    
+    // import https for creating https server
+    const https = require('https');
+    const fs = require('fs');
+
+    var options = {
+        key: fs.readFileSync('./nginx/server_key.pem'),
+        cert: fs.readFileSync('./nginx/server_crt.pem')
+    };
+    const server = https.createServer( options, app );
+    server.listen(4000);    // HTTPS server at port 4000 (https://localhost:4000/)
+    console.log("Https running on 4000")
+}
+
 /*
 https://ja.developer.box.com/guides/embed/ui-elements/custom-domains/#セーフリストへの追加windowsの場合
 Windowsの場合は、レジストリに使用しているページのドメインをホワイトリストとして事前に登録する必要があります。
