@@ -13,17 +13,37 @@ Codes for testing UI Elements on localhost (or Docker)
   - safelist your (localhost) domains on your PC/Mac (more info: https://developer.box.com/guides/embed/ui-elements/custom-domains/)
 
 
+## Using Node.js
+Run the following command:
+
+    npm run start
+
+To access the page, 
+- http://localhost:3000
+- https://localhost:4000
+
 
 ## Using Docker
-Run the following command:
+Run the following command (containers are built and launched based on [docker-compose.yaml](docker-compose.yaml)):
 
     docker-compose up
 
+To access the page,
+- http://192.168.99.100
+- https://192.168.99.100
+
+where 192.168.99.100 is the IP address of docker VM (can be looked up by running `docker-machine ip`)
 
 ## Using Kubernetes
-To initiate services and deployments inside k8s folder, run the below command:
+To initiate services and deployments inside [k8s](k8s) folder, run the below command:
 
     kubectl apply -f k8s
+
+To access the page,
+- http://192.168.99.101
+- https://192.168.99.101
+
+where 192.168.99.101 is the IP address of minikube (can be looked up by running `minikube ip`)
 
 To get the list of pods, run this:
 
