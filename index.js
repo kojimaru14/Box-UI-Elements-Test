@@ -6,7 +6,7 @@ const path = require('path');
 const https = require('https');
 const fs = require('fs');
 
-const config = require('C:\\Box_SDK\\BoxCLI\\39235654_zupg6r6a_config_codepen.json');  
+const config = require('./BoxJWTConfig.json');
 var BoxSDK = require('box-node-sdk');
 
 const app = express();
@@ -49,8 +49,8 @@ app.get('/', (req, res) => {
 });
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-const PORT = process.env.PORT || 5000;
-app.listen(PORT);       // HTTP  server at port 5000 (http://localhost:5000/)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT);       // HTTP  server at port 5000 (http://localhost:3000/)
 server.listen(4000);    // HTTPS server at port 4000 (https://localhost:4000/)
 /*
 https://ja.developer.box.com/guides/embed/ui-elements/custom-domains/#セーフリストへの追加windowsの場合
