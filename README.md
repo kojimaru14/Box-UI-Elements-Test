@@ -25,7 +25,7 @@ To initiate services and deployments inside k8s folder, run the below command:
 
     kubectl apply -f k8s
 
-To get tehe list of pods, run this:
+To get the list of pods, run this:
 
     kubectl get pods
 
@@ -45,12 +45,16 @@ Output:
     > ui_elements@1.0.0 start /app
     > nodemon index.js
 
-    [33m[nodemon] 2.0.4[39m
-    [33m[nodemon] to restart at any time, enter `rs`[39m
-    [33m[nodemon] watching path(s): *.*[39m
-    [33m[nodemon] watching extensions: js,mjs,json[39m
-    [32m[nodemon] starting `node index.js`[39m
+     [33m[nodemon] 2.0.4 [39m
+     [33m[nodemon] to restart at any time, enter `rs` [39m
+     [33m[nodemon] watching path(s): *.* [39m
+     [33m[nodemon] watching extensions: js,mjs,json [39m
+     [32m[nodemon] starting `node index.js` [39m
 
+
+To clean up k8s services/deployments, run this:
+
+    kubectl delete -f k8s
 
 To update docker image, run this:
 
