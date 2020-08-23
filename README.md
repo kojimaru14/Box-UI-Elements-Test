@@ -18,3 +18,41 @@ Codes for testing UI Elements on localhost (or Docker)
 Run the following command:
 
     docker-compose up
+
+
+## Using Kubernetes
+To initiate services and deployments inside k8s folder, run the below command:
+
+    kubectl apply -f k8s
+
+To get tehe list of pods, run this:
+
+    kubectl get pods
+
+Output:
+
+    NAME                                  READY   STATUS    RESTARTS   AGE
+    express-deployment-5989b69bf7-gj47s   1/1     Running   0          60s
+    express-deployment-5989b69bf7-t455w   1/1     Running   0          69s
+    express-deployment-5989b69bf7-vhcrd   1/1     Running   0          65s
+
+To get the log of a specific pod, run this:
+
+    kubectl logs express-deployment-5989b69bf7-gj47s
+
+Output:
+
+    > ui_elements@1.0.0 start /app
+    > nodemon index.js
+
+    [33m[nodemon] 2.0.4[39m
+    [33m[nodemon] to restart at any time, enter `rs`[39m
+    [33m[nodemon] watching path(s): *.*[39m
+    [33m[nodemon] watching extensions: js,mjs,json[39m
+    [32m[nodemon] starting `node index.js`[39m
+
+
+To update docker image, run this:
+
+    docker build -t lyugaloki/ui-elements-express -f ./Dockerfile.dev .
+    docker push lyugaloki/ui-elements-express
