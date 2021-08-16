@@ -16,6 +16,7 @@ Codes for testing UI Elements on localhost (or Docker)
 ## Using Node.js
 Run the following command:
 
+    npm install     <- first time ONLY
     npm run start
 
 To access the page, 
