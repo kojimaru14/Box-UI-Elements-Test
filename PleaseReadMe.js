@@ -1,5 +1,5 @@
 const boxSDK = require("box-node-sdk");
-const config = require('C:\\Box_SDK\\BoxCLI\\39235654_zupg6r6a_config_codepen.json');
+const config = require("C:\\Development\\Node\\UI_Elements\\BoxJWTConfig.json");
 const fs = require("fs");
 
 /*
